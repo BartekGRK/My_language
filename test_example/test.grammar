@@ -1,0 +1,42 @@
+S napis = "Wybierz 5 albo 10"                # String
+SHOW napis
+
+I WRITE x 
+
+IF x==10 THEN:
+    I x = 11
+    SHOW x
+    I x = 12
+    SHOW x
+ENDIF
+
+IF x==5 THEN:
+    I x = 99
+    SHOW x 
+ENDIF
+
+
+I zmienna = 2                                    # Przypisz
+SHOW zmienna                          
+
+
+S napis = "Podaj liczbe do ktorej zostanie dodana powyzsza liczba:"
+SHOW napis
+
+
+I WRITE x                                        # Wczytaj  
+I wynik = zmienna + x                            # Przypisanie
+
+SHOW wynik                                       # Print
+
+S napis = "Podaj kolejna liczbe tym razem double, zostanie odjete 3:"
+SHOW napis
+
+D WRITE z                                         # Przypisanie double
+D minus = z - 3.9 + 0.9  
+
+SHOW minus
+
+
+
+
