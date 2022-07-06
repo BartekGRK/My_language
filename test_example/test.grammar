@@ -29,11 +29,11 @@ I wynik = zmienna + x                            # Przypisanie
 
 SHOW wynik                                       # Print
 
-S napis = "Podaj kolejna liczbe tym razem double, zostanie odjete 3:"
+S napis = "Podaj kolejna liczbe tym razem double, zostanie odjete 3.5:"
 SHOW napis
 
 D WRITE z                                         # Przypisanie double
-D minus = z - 3.9 + 0.9  
+D minus = z - 4.4 + 0.9  
 
 SHOW minus
 

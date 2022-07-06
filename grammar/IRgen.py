@@ -69,11 +69,7 @@ class IRgen(BaLangVisitor):
         right = self.visit(ctx.right)
 
         if left.type != right.type:
-            # if isinstance(left.type, ir.IntType) and isinstance(right.type, ir.DoubleType):
-            #     left = self.builder.uitofp(left, ir.DoubleType())
-            # elif isinstance(right.type, ir.IntType) and isinstance(left.type, ir.DoubleType):
-            #     right = self.builder.uitofp(right, ir.DoubleType())
-            # else:
+            
             raise Exception("Operation with different types in line %s" % ctx.op.line)
 
         if isinstance(left.type, ir.IntType):
@@ -112,13 +108,10 @@ class IRgen(BaLangVisitor):
             else:
                 self.locals[ctx.name.text] = ptr
 
-            
-        # if value.type != decltype :
-        #      raise Exception("cannot assign difrent types in line",ctx.vartype.line)
-
+      
         if ctx.vartype.text == "S":
             decltype = ir.ArrayType(ir.IntType(8),len(ctx.getText()))            
-            # ptr = self.builder.alloca(value.type)
+            
             self.napis = ctx.getText().split("\"")[1]
             self.locals[ctx.name.text] = value
 
@@ -130,12 +123,10 @@ class IRgen(BaLangVisitor):
 
         global_fmt = ir.GlobalVariable(self.module, c_str_val.type, name="str."+str(randint(0, 100))) #tworzony globalny napis
 
-        # c_str = self.builder.alloca(c_str_val.type) #creation of the allocation of the %".2" variable
+        
         global_fmt.linkage = 'private'
         global_fmt.global_constant = True
         global_fmt.initializer = c_str_val
-        # self.builder.store(c_str_val, c_str) #store as defined on the next line below %".2"
-
         voidptr_ty = ir.IntType(8).as_pointer() 
         fmt_arg = self.builder.bitcast(global_fmt, voidptr_ty) #creates the %".4" variable with the point pointing to the fstr
         self.builder.call(self.printf, [fmt_arg]) #We are calling the prinf function with the fmt and arg and returning the value as defiend on the next line
@@ -156,7 +147,7 @@ class IRgen(BaLangVisitor):
 
     def visitPrinting(self, ctx: BaLangParser.PrintingContext):
         name = ctx.name.text
-        # self.Stringprint()
+       
         if not name in self.locals:
             raise Exception("Variable \"%s\" in line: %s does not exist" % (name, ctx.name.line))
         
@@ -231,8 +222,6 @@ class IRgen(BaLangVisitor):
         var_type = ctx.getChild(0)
         
        
-        # if not name in self.locals:
-        #     raise Exception("missing variable ", name)
         if str(var_type) == 'S':
             decltype = ir.ArrayType(ir.IntType(8),20)            
             ptr = self.builder.alloca(decltype)
@@ -257,7 +246,6 @@ class IRgen(BaLangVisitor):
      
         left = ctx.ifoperator.left.text
         left = self.locals[ctx.ifoperator.left.text]        
-        # right = ctx.ifoperator.right.text       
         rightvalue = self.visit(ctx.ifoperator.right)
         leftvalue = self.builder.load(left)
 
@@ -270,19 +258,14 @@ class IRgen(BaLangVisitor):
 
         l_r = self.builder.icmp_signed(op, leftvalue, rightvalue)
         self.builder.cbranch(l_r, loopbody, loopend)
-        # self.builder.branch(loopend)
+     
         self.builder.position_at_end(loopbody)
         self.FlagIf = True
         self.visitChildren(ctx)
         self.builder.branch(loopend)
         self.FlagIf = False
         self.builder.position_at_end(loopend)
-        #Test nie do konca działający
-        # with self.builder.if_then(l_r) as bbend:
-        #     bb_then = self.builder.basic_block
-        #     self.FlagIf = bb_then
-        #     self.visitChildren(ctx)
-        #     self.FlagIf = None
+       
 
     def visitDofunction(self,ctx: BaLangParser.ExpressionContext):
         double = ir.DoubleType()
