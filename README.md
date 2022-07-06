@@ -1,7 +1,8 @@
 # My simple language BaLang
 
-I designed a very simple programming language and wrote an interpreter for this language using Python. Grammar is in file with .g4 extension in [grammar](https://github.com/BartekGRK/My_language/tree/main/grammar) folder. This format is used by a parser generation tool called ANTLR 4. There is a file IRgen.py in the same folder. It generates LLVM representation of tested grammar from folder [test_example](https://github.com/BartekGRK/My_language/tree/main/test_example) and creates file with .ll extension which can be compiled by Clang (C/C++/Objective-C compiler)
+I designed a very simple programming language and wrote an interpreter for this language using Python. Language grammar is in file with .g4 extension in [grammar](https://github.com/BartekGRK/My_language/tree/main/grammar) folder. This format is used by a parser generation tool called ANTLR 4. There is a file IRgen.py in the same folder. It generates LLVM representation of tested grammar from folder [test_example](https://github.com/BartekGRK/My_language/tree/main/test_example) and creates file with .ll extension which can be compiled by Clang (C/C++/Objective-C compiler)
 
+It is simple version with adding, subtracting, assigning, displaying int, double, string types, and using if statements. There are many things that could be improved, e.g. adding function building, dynamic typing, indentation. It depends on how we would like the language to look like.
 
 ## Installation
 
@@ -22,6 +23,9 @@ Used [Windows Subsystem for Linux ](https://ubuntu.com/wsl)
   ```bash
   make test
   ```
+## Grammar
+[grammar](https://github.com/BartekGRK/My_language/blob/main/grammar/BaLang.g4)
+
 ## Example test
 ```
 S napis = "Wybierz 5 albo 10"                # String
